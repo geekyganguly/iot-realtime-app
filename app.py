@@ -3,11 +3,17 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_daq as daq
+import dash_auth
 
 # BootStrap CSS
 import dash_bootstrap_components as dbc
 
 import data
+
+# Keep this out of source code repository - save in a file or a database
+VALID_USERNAME_PASSWORD_PAIRS = {
+    'admin': 'test@123'
+}
 
 app = dash.Dash(__name__,
                 external_stylesheets = [dbc.themes.BOOTSTRAP],
@@ -23,6 +29,11 @@ app = dash.Dash(__name__,
 server = app.server
 app.title = "IoT Realtime"
 
+auth = dash_auth.BasicAuth(
+    app,
+    VALID_USERNAME_PASSWORD_PAIRS
+)
+
 app.layout = html.Div([
 	dcc.Interval(
         id='interval-component',
@@ -32,14 +43,19 @@ app.layout = html.Div([
 	
 	dbc.CardColumns([
 		dbc.Card([
-			dbc.CardHeader("NMDC Navratna", className='h2 text-light bg-danger'),
+			dbc.CardHeader([
+				dbc.Row([
+                    dbc.Col(html.Img(src='/assets/favicon.ico', width='60px', className='img-fluid')),
+                    dbc.Col(html.P("NMDC Limited", className="h2 text-light pt-2"), width=9),
+                ], no_gutters=True),
+			], className=' bg-danger'),
 			dbc.CardBody([
 				html.H5("Project by - Saurav Ganguly", className='text-danger')
 			]),
 		],color="danger", outline=True, className='text-center'),
 
 		dbc.Card([
-			dbc.CardHeader("Temperature", className='h2 text-light bg-danger'),
+			dbc.CardHeader("Temperature", className='h4 text-light bg-danger'),
 			dbc.CardBody([
 				daq.Thermometer(
 					id='thermometer',
@@ -54,7 +70,7 @@ app.layout = html.Div([
 		],color="danger", outline=True, className='text-center'),
     	
     	dbc.Card([
-			dbc.CardHeader("Battery", className='h2 text-light bg-danger'),
+			dbc.CardHeader("Battery", className='h4 text-light bg-danger'),
 			dbc.CardBody([
 				daq.GraduatedBar(
   					id='graduatedbar',
@@ -62,12 +78,13 @@ app.layout = html.Div([
   					step=2,
   					max=100,
   					color="#FF5E5E",
+  					className='pt-3 pb-3'
 				)  
 			]),
 		],color="danger", outline=True, className='text-center'),
 
     	dbc.Card([
-			dbc.CardHeader("Speed", className='h2 text-light bg-danger'),
+			dbc.CardHeader("Speed", className='h4 text-light bg-danger'),
 			dbc.CardBody([
 				daq.Gauge(
 					id='gauge',
@@ -82,19 +99,19 @@ app.layout = html.Div([
 		],color="danger", outline=True, className='text-center'),
     
 		dbc.Card([
-			dbc.CardHeader("Counter", className='h2 text-light bg-danger'),
+			dbc.CardHeader("Counter", className='h4 text-light bg-danger'),
 			dbc.CardBody([
 				daq.LEDDisplay(
 					id='leddisplay',
 					size=60,
 					color="#FF5E5E",
-					className='pt-3 pb-3'
+					className='pt-3 pb-4'
 				)  
 			]),
 		],color="danger", outline=True, className='text-center'),
     	
     	dbc.Card([
-			dbc.CardHeader("Fuel", className='h2 text-light bg-danger'),
+			dbc.CardHeader("Fuel", className='h4 text-light bg-danger'),
 			dbc.CardBody([
 				daq.Tank(
 					id='tank',
@@ -104,12 +121,12 @@ app.layout = html.Div([
 					units='gallons',
 					color="#FF5E5E",
 					style={'margin-left': '100px'},
-					className='pt-3 pb-2'
+					className='pt-4 pb-4'
 				) 
 			]),
 		],color="danger", outline=True, className='text-center'),
    ])
-],className='container-md mt-4')
+],className='container-md mt-3')
 
 
 @app.callback(
