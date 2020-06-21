@@ -1,6 +1,8 @@
 # iot-realtime-app
 Python Dash web app for Realtime IoT application.<br>
 Preview app [here](https://iot-realtime-app.herokuapp.com/)
+Login id - admin 
+Password - test@123
 
 Install requirements packages using pip<br>
 `
@@ -24,8 +26,16 @@ Note-
         n_intervals=0
   ),
    ```
+* You can change authentication credentials in app.py at line 15
+  ```
+  # Keep this out of source code repository - save in a file or a database
+  VALID_USERNAME_PASSWORD_PAIRS = {
+      'admin': 'test@123'
+  }
+  ```
 References - 
 * [https://dash.plotly.com/layout](https://dash.plotly.com/layout)
 * [https://dash.plotly.com/basic-callbacks](https://dash.plotly.com/basic-callbacks)
 * [https://dash.plotly.com/dash-daq](https://dash.plotly.com/dash-daq)
 * [https://dash-bootstrap-components.opensource.faculty.ai/docs/components/card/](https://dash-bootstrap-components.opensource.faculty.ai/docs/components/card/)
+* [https://dash.plotly.com/authentication](https://dash.plotly.com/authentication)
