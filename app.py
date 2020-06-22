@@ -46,7 +46,7 @@ app.layout = html.Div([
 			dbc.CardHeader([
 				dbc.Row([
                     dbc.Col(html.Img(src='/assets/favicon.ico', width='60px', className='img-fluid')),
-                    dbc.Col(html.P("NMDC Limited", className="h2 text-light pt-2"), width=9),
+                    dbc.Col(html.P("IoT Limited", className="h2 text-light pt-2"), width=9),
                 ], no_gutters=True),
 			], className=' bg-danger'),
 			dbc.CardBody([
